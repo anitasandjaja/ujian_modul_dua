@@ -1,0 +1,20 @@
+# 1 Tampilkan 10 (sepuluh) kota terpadat di Indonesia. Minimal kolom yang perlu ditampilkan adalah:
+#id kota, nama kota, country code, nama distrik, populasi
+
+select * from city where countrycode = 'IDN' order by population desc limit 10;
+
+# 2 Tampilkan 10 (sepuluh) kota terpadat di dunia. Minimal kolom yang perlu ditampilkan adalah:
+# id kota, nama kota, nama distrik, populasi
+
+select id as ID, Name as Nama_Kota, District, Population from city order by population desc limit 10;
+
+#3 Tampilkan 10 (sepuluh) negara yang menggunakan Bahasa Inggris dan dipakai sebagai bahasa resmi.
+
+select cl.countrycode as Code, c.Name, cl.Language, cl.IsOfficial, cl.Percentage from countrylanguage cl
+join country c ON c.code = cl.countrycode
+where Language = 'English' and IsOfficial='T ' order by percentage desc limit 10;
+
+# 4 Tampilkan 10 (sepuluh) negara di Asia yang angka harapan hidup nya di atas rata-rata angka harapan hidup di Benua Eropa.
+
+select Name, Continent, LifeExpectancy, GNP from country where LifeExpectancy > (select avg(LifeExpectancy) from country where continent = 'Europe') AND Continent = 'Asia'
+order by LifeExpectancy desc limit 10;
